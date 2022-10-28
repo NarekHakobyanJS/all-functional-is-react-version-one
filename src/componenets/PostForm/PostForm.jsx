@@ -1,0 +1,33 @@
+import React, {useState} from 'react';
+import MyButton from '../../UI/MyButton/MyButton';
+import MyInput from '../../UI/MyInput/MyInput';
+
+function PostForm({create}) {
+    const [post, setPost] = useState({title : "title", body : "body"});
+
+    
+  function addNewPost(e) {
+    e.preventDefault();
+    const newPost = {
+        ...post, id : Date.now()
+    }
+    create(newPost)
+    setPost({title : "", body : ''})
+  }
+    return (
+        <form>
+            <MyInput
+                placeholder='Title'
+                value={post.title}
+                onChange={e => setPost({ ...post, title: e.target.value })}
+            />
+            <MyInput placeholder='Body'
+                value={post.body}
+                onChange={e => setPost({ ...post, body: e.target.value })}
+            />
+            <MyButton onClick={addNewPost}>addPost</MyButton>
+        </form>
+    )
+}
+
+export default PostForm
